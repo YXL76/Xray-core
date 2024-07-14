@@ -9,6 +9,7 @@ import (
 	"github.com/xtls/xray-core/common/protocol/bittorrent"
 	"github.com/xtls/xray-core/common/protocol/http"
 	"github.com/xtls/xray-core/common/protocol/quic"
+	"github.com/xtls/xray-core/common/protocol/ssh"
 	"github.com/xtls/xray-core/common/protocol/tls"
 )
 
@@ -40,6 +41,7 @@ func NewSniffer(ctx context.Context) *Sniffer {
 			{func(c context.Context, b []byte) (SniffResult, error) { return bittorrent.SniffBittorrent(b) }, false, net.Network_TCP},
 			{func(c context.Context, b []byte) (SniffResult, error) { return quic.SniffQUIC(b) }, false, net.Network_UDP},
 			{func(c context.Context, b []byte) (SniffResult, error) { return bittorrent.SniffUTP(b) }, false, net.Network_UDP},
+			{func(c context.Context, b []byte) (SniffResult, error) { return ssh.SniffSSH(b) }, false, net.Network_TCP},
 		},
 	}
 	if sniffer, err := newFakeDNSSniffer(ctx); err == nil {

@@ -87,6 +87,8 @@ func (c *SniffingConfig) Build() (*proxyman.SniffingConfig, error) {
 				p = append(p, "fakedns")
 			case "fakedns+others":
 				p = append(p, "fakedns+others")
+			case "ssh":
+				p = append(p, "ssh")
 			default:
 				return nil, errors.New("unknown protocol: ", protocol)
 			}
